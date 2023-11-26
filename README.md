@@ -30,7 +30,7 @@ Dictionary
 <br>
 - การเพิ่มข้อมูล
   <br>
-  ![image](https://github.com/Mewwemmew/Dictionary/assets/150503581/0a43938c-a556-4296-8de5-dfc861a54db7)
+![image](https://github.com/Mewwemmew/Dictionary/assets/150503581/0a43938c-a556-4296-8de5-dfc861a54db7)
   <br>
-  ![image](https://github.com/Mewwemmew/Dictionary/assets/150503581/381d170c-517d-4398-93e3-8146c100d124)
+![image](https://github.com/Mewwemmew/Dictionary/assets/150503581/381d170c-517d-4398-93e3-8146c100d124)
 
