@@ -30,7 +30,26 @@ Dictionary
 <br>
 - การเพิ่มข้อมูล
   <br>
-![image](https://github.com/Mewwemmew/Dictionary/assets/150503581/0a43938c-a556-4296-8de5-dfc861a54db7)
+<img src="https://github.com/Mewwemmew/Dictionary/assets/150503581/0a43938c-a556-4296-8de5-dfc861a54db7">
   <br>
-![image](https://github.com/Mewwemmew/Dictionary/assets/150503581/381d170c-517d-4398-93e3-8146c100d124)
-
+<img src="https://github.com/Mewwemmew/Dictionary/assets/150503581/381d170c-517d-4398-93e3-8146c100d124">
+<br>
+- การแก้ไขข้อมูล
+<br>
+<img src="https://github.com/Mewwemmew/Dictionary/assets/150503581/6c8563e0-1176-46d1-be0d-fd859f4cf843">
+<br>
+<img src="https://github.com/Mewwemmew/Dictionary/assets/150503581/08e1659b-b29b-448a-a500-14664190c554">
+<br>
+<img src="https://github.com/Mewwemmew/Dictionary/assets/150503581/29b16ff3-f027-4180-a9ca-1eab56a27b17">
+<br>
+- การลบข้อมูล
+<br>
+<img src="https://github.com/Mewwemmew/Dictionary/assets/150503581/cfb20728-f52e-4adf-bbcf-52e6d174f8ce">
+<br>
+<img src="https://github.com/Mewwemmew/Dictionary/assets/150503581/28dec37b-321d-4751-a1bc-a065465bcb51">
+<br>
+- การค้นหาข้อมูล
+<br>
+<img src="https://github.com/Mewwemmew/Dictionary/assets/150503581/1475ea9e-cf45-4eb8-b608-cc27db61ab9e">
+<br>
+<img src="https://github.com/Mewwemmew/Dictionary/assets/150503581/18a3ab3b-1bbb-4c4b-9b96-684da8f132b8">
