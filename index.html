@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dictionary</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.0/dist/sweetalert2.min.css" rel="stylesheet">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Sarabun&display=swap');
+
+        body{
+            font-family: 'Sarabun', sans-serif;
+            background: #f3f6f9;
+        }
+        .headTitle{
+            background: linear-gradient(to right, rgb(247, 202, 202) 0%,rgb(247, 202, 202) 10%,rgb(147, 169, 209) 20%,rgb(147, 169, 209) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent; 
+            -moz-background-clip: text;
+            -moz-text-fill-color: transparent;
+            line-height: 80px;
+        }
+        .bg-clear{
+            background: #0000000a;
+        }
+        .br-20{
+            border-radius: 20px;
+        }
+        .cardRead{
+            background: repeating-linear-gradient(#F1EDE9, #F1EDE9 31px, #94ACD4 31px, #94ACD4 32px);
+            box-shadow: 4px 4px 15px rgba(0,0,0, .15);
+            line-height:32px;
+            font-size: 20px;
+        }
+        .form-control{
+            border-radius: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="px-3">
+        <div class="row">
+            <div class="col-12">
+
+                <div class="row mt-2 br-20">
+                    <div class="col-12">
+                        <h1 class="headTitle">&nbsp;&nbsp;&nbsp;&nbsp; Dictionary ( พจนานุกรม ) </h1>
+                    </div>
+                </div>
+                <hr class="mt-2 mb-3">
+
+                <div class="row d-flex justify-content-around">
+                    <div class="col-12">
+                        <div class="card br-20">
+                            <form id="manageForm" class="br-20">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <input type="hidden" name="edit_index" id="edit_index">
+                                        <div class="col-3">
+                                            <label for="eng_word">English Vocabulary ( คำศัพท์ภาษาอังกฤษ )</label>
+                                            <input type="text" name="eng_word" id="eng_word" class="form-control" required autofocus>
+                                        </div>
+                                        <div class="col-3">
+                                            <label for="thai_word">Thai Translation ( คำแปลภาษาไทย )</label>
+                                            <input type="text" name="thai_word" id="thai_word" class="form-control" required>
+                                        </div>
+                                        <div class="col-2">
+                                            <label for="kind_word">Kind Of Vocabulary ( ชนิดของคำ )</label>
+                                            <select name="kind_word" id="kind_word" class="form-control" required>
+                                                <option value="">- Choose ( เลือก ) -</option>
+                                                <option value="noun"> Noun ( คำนาม ) </option>
+                                                <option value="pronoun"> Pronoun ( คำสรรพนาม ) </option>
+                                                <option value="verb"> Verb ( คำกริยา ) </option>
+                                                <option value="adjective"> Adjective ( คำคุณศัพท์ ) </option>
+                                                <option value="adverb"> Adverb ( คำวิเศษณ์ ) </option>
+                                                <option value="preposition"> Preposition ( คำบุพบท ) </option>
+                                                <option value="conjunction"> Conjunction ( คำสันธาน ) </option>
+                                                <option value="interjection"> Interjection ( คำอุทาน ) </option>
+                                            </select>
+                                        </div>
+                                        <div class="col-2">
+                                            <button type="submit" class="btn btn-success mt-4"> Save </button>
+                                            <button type="button" id="cancel_button" class="btn btn-danger mt-4"> Cancel </button>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card br-20">
+                            <div class="card-body">
+                                <form id="searchForm">
+                                    <div class="row d-flex justify-content-center">
+                                        <div class="col-4">
+                                            <input type="text" placeholder="Search..." name="find_word" id="find_word" class="form-control" required autofocus>
+                                        </div>
+                                        <div class="col-2">
+                                            <button type="submit" class="btn btn-primary"><i class="fas fa-search"></i> Search </button>
+                                        </div>
+                                    </div>
+                                </form>
+                                <div class="row mt-4 d-flex justify-content-center">
+                                    <div class="col-4" id="displayDictionary"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.5/jquery-ui.min.js'></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/js/all.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.0/dist/sweetalert2.all.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+<script>
+    var DictionaryData = [
+        {
+            "eng" : 'Water',
+            "thai" : 'น้ำ',
+            "kind" : 'noun'
+        },
+        {
+            "eng" : 'Word',
+            "thai" : 'คำ',
+            "kind" : 'noun'
+        }
+    ],
+        act = "add",
+        kindOfWord = {
+            'noun' : 'Noun ( คำนาม )',
+            'pronoun' : 'Pronoun ( คำสรรพนาม )',
+            'verb' : 'Verb ( คำกริยา )',
+            'adjective' : 'Adjective ( คำคุณศัพท์ )',
+            'adverb' : 'Adverb ( คำวิเศษณ์ )',
+            'preposition' : 'Preposition ( คำบุพบท )',
+            'conjunction' : 'Conjunction ( คำสันธาน )',
+            'interjection' : 'Interjection ( คำอุทาน )',
+        };
+    $(function(){
+        $("form#manageForm").submit(function(){
+            let eng = $("#eng_word").val();
+                eng = eng.toLowerCase().replace(/\b[a-z]/g, function(letter) {
+                    return letter.toUpperCase();
+                });
+            let item_find = DictionaryData.find(item => item.eng === eng && item.kind === $("#kind_word").val()),
+                index_find = DictionaryData.findIndex(x => x.eng === eng && x.kind === $("#kind_word").val());
+            if((act == "add" && typeof item_find != "undefined") || (act == "edit" && typeof item_find != "undefined" && $("#edit_index").val() != index_find)) {
+                Swal.fire({
+                    icon: "error",
+                    title: "เกิดข้อผิดพลาด",
+                    html: "Same Vocabulary ( คำศัพท์ซ้ำ )",
+                    showConfirmButton: false,
+                    timer: 2000
+                });
+                return false;
+            } 
+            if(act == "edit"){
+                
+                let index = $("#edit_index").val();
+                DictionaryData[index].eng = eng;
+                DictionaryData[index].thai = $("#thai_word").val();
+                DictionaryData[index].kind = $("#kind_word").val();
+            }else{
+                let item_find = DictionaryData.find(item => item.eng === eng && item.kind === $("#kind_word").val());
+                if(typeof item_find != "undefined") {
+                    Swal.fire({
+                        icon: "error",
+                        title: "เกิดข้อผิดพลาด",
+                        html: "Same Vocabulary ( คำศัพท์ซ้ำ )",
+                        showConfirmButton: false,
+                        timer: 2000
+                    });
+                    return false;
+                }
+                let obj = {
+                        "eng" : eng,
+                        "thai" : $("#thai_word").val(),
+                        "kind" : $("#kind_word").val()
+                    }
+                DictionaryData.push(obj);
+            }
+            
+            DictionaryData.sort(function(a, b) { 
+                return  a.eng.localeCompare(b.eng);
+            });
+            let index = DictionaryData.findIndex(x => x.eng === eng && x.kind === $("#kind_word").val());
+            clearForm();
+            createCard('search', index , true);
+            return false;
+        });
+
+        $("#cancel_button").click(function(){
+            clearForm();
+        });
+
+        $("form#searchForm").submit(function(){
+            let find = $("#find_word").val();
+            find = find.toLowerCase().replace(/\b[a-z]/g, function(letter) {
+                    return letter.toUpperCase();
+            });
+            let index = DictionaryData.findIndex(x => x.eng === find);
+        if(index > -1){
+            createCard('search', index , true);
+        }else{
+            Swal.fire({
+                icon: "error",
+                title: "เกิดข้อผิดพลาด",
+                html: "Don't Have This Vocabulary ( ไม่มีคำศัพท์นี้ )",
+                showConfirmButton: false,
+                timer: 2000
+            });
+        }
+            
+            return false;
+        })
+
+        createCard('first');
+    });
+
+    function clearForm(){
+        act = "add";
+        $("#eng_word").val('').focus();
+        $("#thai_word").val('');
+        $("#kind_word").val('');
+        $("#edit_index").val('');
+
+        if($("#eng_word").hasClass('bg-warning')) $("#eng_word").removeClass('bg-warning');
+        if($("#thai_word").hasClass('bg-warning')) $("#thai_word").removeClass('bg-warning');
+        if($("#kind_word").hasClass('bg-warning')) $("#kind_word").removeClass('bg-warning');
+    }
+
+    async function createCard(type_display = "search", index = null, is_next = false){
+        if(DictionaryData.length <= 0 && type_display != 'first'){
+            Swal.fire({
+                icon: "error",
+                title: "เกิดข้อผิดพลาด",
+                html: "Don't Have Data ( ไม่มีข้อมูล )",
+                showConfirmButton: false,
+                timer: 2000
+            });
+            return false;
+        }
+        let str = "",left = "0",right = "0" ;
+        if(DictionaryData.length > 0 && type_display != 'first'){
+            if(is_next){
+                $("#displayDictionary").animate({'margin-right' : "50%",'opacity' : '0'},300,function(){
+                $("#displayDictionary").animate({'margin-right' : "0%", 'margin-left' : "50%",'opacity' : '0'},300);
+                    str = `<div class="card cardRead h-100">
+                            <p class="m-0">&nbsp;</p>
+                            <p class="m-0">
+                                &nbsp; Vocabulary ( คำศัพท์ ) : ${DictionaryData[index].eng}
+                            </p>
+                            <p class="m-0">&nbsp;</p>
+                            <p class="m-0">
+                                &nbsp; Translation ( คำแปล ) : ${DictionaryData[index].thai}
+                            </p>
+                            <p class="m-0">&nbsp;</p>
+                            <p class="m-0">
+                                &nbsp; Kind ( ชนิดคำ ) : ${kindOfWord[DictionaryData[index].kind]}
+                            </p>
+                            <p class="m-0">&nbsp;</p>
+                            <p class="m-0 d-flex justify-content-center align-items-center">
+                                    <span style="cursor: pointer;" onclick="editCard(${index})"> <i class="fas fa-edit"></i> แก้ไข</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <span style="cursor: pointer;" onclick="deleteCard(${index})"> <i class="fas fa-trash-alt"></i> ลบ</span></p>
+                            <p class="m-0">&nbsp;</p>
+                            <p class="m-0 ">
+                                <span style="float: left;">&nbsp;&nbsp;<i class="fas fa-arrow-left" style="cursor: pointer;" onclick="createCard('search',${index == "0" ? "null" : index - 1},false)"></i></span>
+                                ${(index != (DictionaryData.length - 1) ? `<span style="float: right;"><i class="fas fa-arrow-right " onclick="createCard('search',${index + 1},true)" style="cursor: pointer;"></i>&nbsp;&nbsp;</span>` : "")}
+                            </p>
+                        </div>`;
+                        $("#displayDictionary").html(str);
+                    $("#displayDictionary").animate({'margin-left' : "0%",'opacity' : '1'},300);
+                    
+                });
+            }else{
+                $("#displayDictionary").animate({'margin-left' : "50%",'opacity' : '0'},300,function(){
+                    $("#displayDictionary").animate({'margin-left' : "0%", 'margin-right' : "50%",'opacity' : '0'},300);
+                    if(index != null){
+                        str = `<div class="card cardRead h-100">
+                            <p class="m-0">&nbsp;</p>
+                            <p class="m-0">
+                                &nbsp; Vocabulary ( คำศัพท์ ) : ${DictionaryData[index].eng}
+                            </p>
+                            <p class="m-0">&nbsp;</p>
+                            <p class="m-0">
+                                &nbsp; Translation ( คำแปล ) : ${DictionaryData[index].thai}
+                            </p>
+                            <p class="m-0">&nbsp;</p>
+                            <p class="m-0">
+                                &nbsp; Kind ( ชนิดคำ ) : ${kindOfWord[DictionaryData[index].kind]}
+                            </p>
+                            <p class="m-0">&nbsp;</p>
+                            <p class="m-0 d-flex justify-content-center align-items-center">
+                                    <span style="cursor: pointer;" onclick="editCard(${index})"> <i class="fas fa-edit"></i> แก้ไข</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <span style="cursor: pointer;" onclick="deleteCard(${index})"> <i class="fas fa-trash-alt"></i> ลบ</span></p>
+                            <p class="m-0">&nbsp;</p>
+                            <p class="m-0">&nbsp;</p>
+                            <p class="m-0 ">
+                                <span style="float: left;">&nbsp;&nbsp;<i class="fas fa-arrow-left" style="cursor: pointer;" onclick="createCard('search',${index == "0" ? "null" : index - 1},false)"></i></span>
+                                ${(index != (DictionaryData.length - 1) ? `<span style="float: right;"><i class="fas fa-arrow-right " onclick="createCard('search',${index + 1},true)" style="cursor: pointer;"></i>&nbsp;&nbsp;</span>` : "")}
+                            </p>
+                        </div>`;
+                    }else{
+                        str = `<div class="card cardRead h-100">
+                                    <p class="m-0">&nbsp;</p>
+                                    <p class="m-0">&nbsp;</p>
+                                    <p class="m-0 d-flex justify-content-center">
+                                        Dictionry 
+                                    </p>
+                                    <p class="m-0 d-flex justify-content-center">
+                                        ( พจนานุกรม )
+                                    </p>
+                                    <p class="m-0">&nbsp;</p>
+                                    <p class="m-0 d-flex justify-content-center">${DictionaryData.length > 0 ? DictionaryData.length+"คำ" : "ไม่มีคำศัพท์"} </p>
+                                    <p class="m-0">&nbsp;</p>
+                                    <p class="m-0 d-flex justify-content-center align-items-center"><span style="cursor: pointer;" onclick="createCard('search', 0, true)"><i class="fas fa-book-open"></i>&nbsp;เปิด</span></p>
+                                    <p class="m-0">&nbsp;</p>
+                                    <p class="m-0 ">&nbsp;</p>
+                                </div>`;
+                    }
+                    $("#displayDictionary").html(str);
+                    $("#displayDictionary").animate({'margin-right' : "0%",'opacity' : '1'},300);
+                });
+            }
+        }else{
+            str = `<div class="card cardRead h-100">
+                    <p class="m-0">&nbsp;</p>
+                    <p class="m-0">&nbsp;</p>
+                    <p class="m-0 d-flex justify-content-center">
+                        Dictionry 
+                    </p>
+                    <p class="m-0 d-flex justify-content-center">
+                        ( พจนานุกรม )
+                    </p>
+                    <p class="m-0">&nbsp;</p>
+                    <p class="m-0 d-flex justify-content-center">${DictionaryData.length > 0 ? DictionaryData.length+"คำ" : "ไม่มีคำศัพท์"} </p>
+                    <p class="m-0">&nbsp;</p>
+                    <p class="m-0 d-flex justify-content-center align-items-center"><span style="cursor: pointer;" onclick="createCard('search', 0, true)"><i class="fas fa-book-open"></i>&nbsp;เปิด</span></p>
+                    <p class="m-0">&nbsp;</p>
+                    <p class="m-0 ">&nbsp;</p>
+                </div>`;
+            $("#displayDictionary").html(str);
+            $("#displayDictionary").animate({'margin-left' : "0%",'opacity' : '1'},500);
+        }
+    }
+    function editCard(index){
+        clearForm();
+        act = "edit";
+        $("#edit_index").val(index);
+        $("#eng_word").val(DictionaryData[index].eng).focus();
+        $("#thai_word").val(DictionaryData[index].thai);
+        $("#kind_word").val(DictionaryData[index].kind);
+
+        if($("#eng_word").hasClass('bg-warning') === false) $("#eng_word").addClass('bg-warning');
+        if($("#thai_word").hasClass('bg-warning') === false) $("#thai_word").addClass('bg-warning');
+        if($("#kind_word").hasClass('bg-warning') === false) $("#kind_word").addClass('bg-warning');
+    }
+    function deleteCard(index){
+        clearForm();
+        let current_new, is_next = false;
+        if(index == (DictionaryData.length - 1)) current_new = index - 1;
+        else {
+            current_new = index;
+            is_next = true;
+        }
+        DictionaryData.splice(index,1);
+        current_new = DictionaryData.length > 0 ? createCard("search", current_new, is_next) : createCard("first");
+        
+    }
+</script>
